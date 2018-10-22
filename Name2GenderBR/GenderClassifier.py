@@ -3,6 +3,7 @@ import pickle
 import os
 import unicodedata
 import Levenshtein
+import pkg_resources
 
 def strip_accents(s):
    return ''.join(c for c in unicodedata.normalize('NFD', s)
@@ -14,22 +15,23 @@ class GenderClassifier:
         self._initialize_summary_df()
 
     def _initialize_summary_df(self):
-        if not os.path.isfile('summary.p'):
-            names_df = pd.read_csv('nomes.csv', delimiter=',')
-            summary_df = names_df[
-                ['first_name', 'frequency_male', 'frequency_female', 'frequency_total', 'classification']]
-
-            summary_df.set_index('first_name', inplace=True)
-
-            del names_df
-
-            with open('summary.p', 'wb') as output:
-                pickle.dump(summary_df, output)
-
-            self.summary_df = summary_df
-        else:
-            with open('summary.p', 'rb') as input:
-                self.summary_df = pickle.load(input)
+        file = pkg_resources.resource_stream(__name__, 'summary.p')
+        # if not os.path.isfile(''):
+        #     names_df = pd.read_csv('nomes.csv', delimiter=',')
+        #     summary_df = names_df[
+        #         ['first_name', 'frequency_male', 'frequency_female', 'frequency_total', 'classification']]
+        #
+        #     summary_df.set_index('first_name', inplace=True)
+        #
+        #     del names_df
+        #
+        #     with open('summary.p', 'wb') as output:
+        #         pickle.dump(summary_df, output)
+        #
+        #     self.summary_df = summary_df
+        # else:
+        #     with open(file, 'rb') as input:
+        self.summary_df = pickle.load(file)
 
     def _find_closest_name(self, name):
 
@@ -77,8 +79,6 @@ class GenderClassifier:
     def get_stats(self, name):
         return self.summary_df.loc[[self._sanitize(name)]]
 
-# classifier = GenderClassifier()
-# print(classifier.get_gender('Gabriela'))
-# print(classifier.is_female('Róbson'))
-# print(classifier.get_stats('Gabriela'))
-# print(classifier.get_gender('Heriveltonn'))
+    def test(self):
+        classifier = GenderClassifier()
+        print(classifier.get_gender('Gabriela'))
