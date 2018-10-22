@@ -74,7 +74,11 @@ class GenderClassifier:
     def is_female(self, name):
         return self.get_gender(name) == 'F'
 
+    def get_stats(self, name):
+        return self.summary_df.loc[[self._sanitize(name)]]
+
 # classifier = GenderClassifier()
 # print(classifier.get_gender('Gabriela'))
-# print(classifier.is_female('Gabriela'))
+# print(classifier.is_female('Róbson'))
+# print(classifier.get_stats('Gabriela'))
 # print(classifier.get_gender('Heriveltonn'))

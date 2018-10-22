@@ -1,2 +1,2 @@
-from Name2GenderBR.GenderBR import GenderBR
+from Name2GenderBR.GenderClassifier import GenderClassifier
 
