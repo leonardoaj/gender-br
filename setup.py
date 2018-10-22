@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'Name2GenderBR',         # How you named your package folder (MyLib)
   packages = ['Name2GenderBR'],   # Chose the same as "name"
-  version = '0.1',      # Start with a small number and increase it with every change you make
+  version = '0.5',      # Start with a small number and increase it with every change you make
   license='GNU GPL v3.0',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
   description = 'Data analysis of name and gender of Brazilian population. Enables gender definition by name.',   # Give a short description about your library
   author = 'Leonardo A. de Jesus',                   # Type in your name
