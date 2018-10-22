@@ -1,3 +1,4 @@
 nomes.csv
 .idea
 dist
+*.pyc
