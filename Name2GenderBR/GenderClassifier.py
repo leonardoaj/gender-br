@@ -16,26 +16,11 @@ class GenderClassifier:
 
     def _initialize_summary_df(self):
         file = pkg_resources.resource_stream(__name__, 'summary.p')
-        # if not os.path.isfile(''):
-        #     names_df = pd.read_csv('nomes.csv', delimiter=',')
-        #     summary_df = names_df[
-        #         ['first_name', 'frequency_male', 'frequency_female', 'frequency_total', 'classification']]
-        #
-        #     summary_df.set_index('first_name', inplace=True)
-        #
-        #     del names_df
-        #
-        #     with open('summary.p', 'wb') as output:
-        #         pickle.dump(summary_df, output)
-        #
-        #     self.summary_df = summary_df
-        # else:
-        #     with open(file, 'rb') as input:
         self.summary_df = pickle.load(file)
 
     def _find_closest_name(self, name):
 
-        distance = len(name) * 2
+        distance = len(name) * 20
         name_aux = ''
 
         for n in self.summary_df.index:
@@ -66,7 +51,6 @@ class GenderClassifier:
 
     def get_gender(self, name):
         name = self._sanitize(name)
-        # gender = self.summary_df[self.summary_df['first_name'] == name]['classification'].values.tolist()[0]
         gender = self.summary_df.at[name, 'classification']
         return gender
 
@@ -78,7 +62,3 @@ class GenderClassifier:
 
     def get_stats(self, name):
         return self.summary_df.loc[[self._sanitize(name)]]
-
-    def test(self):
-        classifier = GenderClassifier()
-        print(classifier.get_gender('Gabriela'))
